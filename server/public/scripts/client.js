@@ -7,6 +7,11 @@ $(document).ready(function(){
         event.preventDefault();
     })
     $('#submitButton').on('click', addToDo)
+    $('#fullList').on('click', '.deleteButton', function(){
+        console.log('delete clicked');
+        let deleteItem = $(item).data('id');
+        deleteToDoItem(deleteItem); 
+    })
 })
 
 function getToDoList(){
@@ -45,5 +50,17 @@ function addToDo(){
         getToDoList();
     }).fail((response) => {
         console.log('item not added');
+    })
+}
+
+function deleteToDoItem(){
+    $.ajax({
+        type: 'DELETE',
+        url: `/todo/delete/${id}`
+    }).done((response) => {
+        console.log('item deleted');
+        getToDoList();
+    }).faile((response) => {
+        console.log('item not deleted');
     })
 }
