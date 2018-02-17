@@ -9,7 +9,7 @@ $(document).ready(function(){
     $('#submitButton').on('click', addToDo)
     $('#fullList').on('click', '.deleteButton', function(){
         console.log('delete clicked');
-        let deleteItem = $(item).data('id');
+        let deleteItem = $(this).data('id');
         deleteToDoItem(deleteItem); 
     })
 })
@@ -53,14 +53,14 @@ function addToDo(){
     })
 }
 
-function deleteToDoItem(){
+function deleteToDoItem(id){
     $.ajax({
         type: 'DELETE',
         url: `/todo/delete/${id}`
     }).done((response) => {
         console.log('item deleted');
         getToDoList();
-    }).faile((response) => {
+    }).fail((response) => {
         console.log('item not deleted');
     })
 }

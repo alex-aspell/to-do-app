@@ -32,4 +32,19 @@ router.post('/add', (request, response) => {
         response.sendStatus(500);
     })
 })
+
+router.delete('/delete/:id', (request, response) => {
+    const id = request.params.id;
+    const sqlText = 'DELETE FROM todo WHERE id=$1';
+    pool.query(sqlText, [id])
+    .then((result) => {
+        console.log('Item deleted', id);
+        response.sendStatus(201);
+    })
+    .catch((result) => {
+        console.log('Delete failed');
+        response.sendStatus(500);
+    })
+})
+
 module.exports = router; 
