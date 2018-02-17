@@ -3,6 +3,26 @@ console.log('heyyyyy');
 $(document).ready(function(){
     console.log('JQ');
     getToDoList();
+    $('#inputForm').on('click', function(event){
+        event.preventDefault();
+    })
+    $('#submitButton').on('click', function(){
+        console.log('clicked');
+        console.log($('#thingToDoIn').val(), $('#dateIn').val())
+        $.ajax({
+            type: 'POST',
+            url: '/todo/add',
+            data: {
+                thing_todo: $('#thingToDoIn').val(),
+                date: $('#dateIn').val()
+            }
+        }).done((response) => {
+            console.log('item added');
+            getToDoList();
+        }).fail((response) => {
+            console.log('item not added');
+        })
+    });
 })
 
 function getToDoList(){
@@ -26,3 +46,20 @@ function showToDoList(listItems){
         $('#fullList').append(showItem);
     }
 }
+
+// function addToDo(){
+//     console.log('clicked');
+//     $.ajax({
+//         type: 'POST',
+//         url: '/todo/add',
+//         data: {
+//             thing_todo: $('#thingToDoIn').val(),
+//             date: $('#dateIn').val()
+//         }
+//     }).done((response) => {
+//         console.log('item added');
+//         getToDoList();
+//     }).fail((response) => {
+//         console.log('item not added');
+//     })
+// }

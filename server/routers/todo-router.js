@@ -16,4 +16,20 @@ router.get('/', (request,response) => {
         response.sendStatus(500);
     })
 })
+
+router.post('/add', (request, response) => {
+    const newItem = request.body;
+    console.log('New item added', newItem);
+    const sqlText = `INSERT INTO todo (thing_todo, date)
+        VALUES ($1, $2)`;
+    pool.query(sqlText, [newItem.thing_todo, newItem.date])
+    .then((result) => {
+        console.log('newItem added', result);
+        response.sendStatus(200);
+    })
+    .catch((result) => {
+        console.log('Item not added');
+        response.sendStatus(500);
+    })
+})
 module.exports = router; 
