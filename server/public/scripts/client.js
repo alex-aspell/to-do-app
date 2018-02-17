@@ -36,16 +36,15 @@ function showToDoList(listItems){
     $('#fullList').empty();
     for ( let item of listItems){
         if (item.completion == 'i'){
-            let showItem = `<div> ${item.thing_todo} ${item.date} <button class="completeButton" data-id="${item.id}">Complete</button> 
+            let showItem = `<div> ${item.thing_todo} ${item.date.substring(0,10)} <button class="completeButton" data-id="${item.id}">Complete</button> 
             <button class="deleteButton" data-id="${item.id}">Delete</button></div>`;
             $('#fullList').append(showItem);
         }
         else {
-            let showItem = `<div> ${item.thing_todo} ${item.date}  
+            let showItem = `<div class="completedItem"> ${item.thing_todo} ${item.date.substring(0,10)}  
             <button class="deleteButton" data-id="${item.id}">Delete</button></div>`;
             $('#fullList').append(showItem);
-            $('#fullList').children().css("background-color", 'green'); 
-            $('#fullList').children().css('color', 'white');
+            $('.completedItem').css("background-color", 'lime'); 
         }
     }
 }
@@ -82,6 +81,12 @@ function deleteToDoItem(id){
 
 function completeToDoItem(id){
     $.ajax({
-
+        type: 'PUT',
+        url: `/todo/complete/${id}`
+    }).done((response) => {
+        console.log('item completed');
+        getToDoList();
+    }).fail((response) => {
+        console.log('item not complete');
     })
 }

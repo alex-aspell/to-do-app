@@ -47,4 +47,18 @@ router.delete('/delete/:id', (request, response) => {
     })
 })
 
+router.put('/complete/:id', (request, response) => {
+    const id = request.params.id; 
+    const sqlText = `UPDATE todo SET completion='c' WHERE id=$1`;
+    pool.query(sqlText, [id])
+    .then((result) => {
+        console.log('completion updated');
+        response.sendStatus(200);
+    }) 
+    .catch((result) => {
+        console.log('not completed');
+        response.sendStatus(500);
+    })
+})
+
 module.exports = router; 
