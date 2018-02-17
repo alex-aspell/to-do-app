@@ -12,6 +12,11 @@ $(document).ready(function(){
         let deleteItem = $(this).data('id');
         deleteToDoItem(deleteItem); 
     })
+    $('#fullList').on('click', '.completeButton', function(){
+        console.log('complete clicked');
+        let completeItem = $(this).data('id');
+        completeToDoItem(completeItem); 
+    })
 })
 
 function getToDoList(){
@@ -30,9 +35,18 @@ function getToDoList(){
 function showToDoList(listItems){
     $('#fullList').empty();
     for ( let item of listItems){
-        let showItem = `<div> ${item.thing_todo} ${item.date} <button class="completeButton" data-id="${item.id}">Complete</button> 
-        <button class="deleteButton" data-id="${item.id}">Delete</button></div>`;
-        $('#fullList').append(showItem);
+        if (item.completion == 'i'){
+            let showItem = `<div> ${item.thing_todo} ${item.date} <button class="completeButton" data-id="${item.id}">Complete</button> 
+            <button class="deleteButton" data-id="${item.id}">Delete</button></div>`;
+            $('#fullList').append(showItem);
+        }
+        else {
+            let showItem = `<div> ${item.thing_todo} ${item.date}  
+            <button class="deleteButton" data-id="${item.id}">Delete</button></div>`;
+            $('#fullList').append(showItem);
+            $('#fullList').children().css("background-color", 'green'); 
+            $('#fullList').children().css('color', 'white');
+        }
     }
 }
 
@@ -43,7 +57,8 @@ function addToDo(){
         url: '/todo/add',
         data: {
             thing_todo: $('#thingToDoIn').val(),
-            date: $('#dateIn').val()
+            date: $('#dateIn').val(),
+            completion: 'i'
         }
     }).done((response) => {
         console.log('item added');
@@ -62,5 +77,11 @@ function deleteToDoItem(id){
         getToDoList();
     }).fail((response) => {
         console.log('item not deleted');
+    })
+}
+
+function completeToDoItem(id){
+    $.ajax({
+
     })
 }

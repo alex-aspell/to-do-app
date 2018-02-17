@@ -20,9 +20,9 @@ router.get('/', (request,response) => {
 router.post('/add', (request, response) => {
     const newItem = request.body;
     console.log('New item added', newItem);
-    const sqlText = `INSERT INTO todo (thing_todo, date)
-        VALUES ($1, $2)`;
-    pool.query(sqlText, [newItem.thing_todo, newItem.date])
+    const sqlText = `INSERT INTO todo (thing_todo, date, completion)
+        VALUES ($1, $2, $3)`;
+    pool.query(sqlText, [newItem.thing_todo, newItem.date, newItem.completion])
     .then((result) => {
         console.log('newItem added', result);
         response.sendStatus(200);
