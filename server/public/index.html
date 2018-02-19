@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="vendors/jquery-3.3.1.js"></script>
     <script src="scripts/client.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="styles/style.css" rel="stylesheet">
     <title>To Do App</title>
 </head>
 <body>
@@ -22,9 +24,19 @@
     </section>
     <section>
         <h3>Things To Do</h3>
-        <div id="fullList">
+        <table class="table">
+        <thead>
+            <tr>
+                <th scope="row">To Do Item</th>
+                <th scope="row">Due Date</th>
+                <th scope="row">Completion</th>
+                <th scope="row">Delete Item</th>
+            </tr>
+        </thead>
+        <tbody id="fullList">
             
-        </div>
+        </tbody>
+    </table>
     </section>
 </body>
 </html>

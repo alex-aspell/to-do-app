@@ -36,13 +36,14 @@ function showToDoList(listItems){
     $('#fullList').empty();
     for ( let item of listItems){
         if (item.completion == 'i'){
-            let showItem = `<div> ${item.thing_todo} ${item.date.substring(0,10)} <button class="completeButton" data-id="${item.id}">Complete</button> 
-            <button class="deleteButton" data-id="${item.id}">Delete</button></div>`;
+            let showItem = `<tr><td>${item.thing_todo}</td><td> ${item.date.substring(0,10)}</td>
+            <td> <button class="completeButton" data-id="${item.id}">Complete</button> </td>
+            <td><button class="deleteButton" data-id="${item.id}">Delete</button></td></tr>`;
             $('#fullList').append(showItem);
         }
         else {
-            let showItem = `<div class="completedItem"> ${item.thing_todo} ${item.date.substring(0,10)}  
-            <button class="deleteButton" data-id="${item.id}">Delete</button></div>`;
+            let showItem = `<tr class="completedItem"><td> ${item.thing_todo}</td><td> ${item.date.substring(0,10)}</td> <td></td> 
+            <td><button class="deleteButton" data-id="${item.id}">Delete</button></td></tr>`;
             $('#fullList').append(showItem);
             $('.completedItem').css("background-color", 'lime'); 
         }
